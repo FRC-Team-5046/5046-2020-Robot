@@ -8,6 +8,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -16,20 +17,32 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.OIConstants;
+import frc.robot.commands.ClimberLiftDown;
+import frc.robot.commands.ClimberLiftStop;
+import frc.robot.commands.ClimberLiftUp;
+import frc.robot.commands.ClimberWinchDown;
+import frc.robot.commands.ClimberWinchStop;
+import frc.robot.commands.ClimberWinchUp;
 import frc.robot.commands.ComplexAuto;
 import frc.robot.commands.DefaultDrive;
 import frc.robot.commands.DriveDistance;
-//import frc.robot.commands.GrabHatch;
 import frc.robot.commands.HalveDriveSpeed;
+import frc.robot.commands.HopperStart;
+import frc.robot.commands.HopperStop;
 import frc.robot.commands.IntakeArmDown;
-//import frc.robot.commands.ReleaseHatch;
+// import frc.robot.commands.StartIntakeRollers;
+// import frc.robot.commands.StopIntakeRollers;
+import frc.robot.commands.IntakeArmUp;
+import frc.robot.commands.ShooterWheelSetSpeed;
 import frc.robot.commands.StartIntakeRollers;
 import frc.robot.commands.StopIntakeRollers;
-import frc.robot.commands.IntakeArmUp;
 import frc.robot.commands.IntakeArmStop;
+import frc.robot.subsystems.ClimberSubsystem;
+import frc.robot.subsystems.ControlPanelSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
-//import frc.robot.subsystems.HatchSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.commands.ShooterWheelSetSpeed;
 
 import static edu.wpi.first.wpilibj.XboxController.Button;
 
@@ -42,8 +55,10 @@ import static edu.wpi.first.wpilibj.XboxController.Button;
 public class RobotContainer {
   // The robot's subsystems
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
-//  private final HatchSubsystem m_hatchSubsystem = new HatchSubsystem();
   private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
+  private final ClimberSubsystem m_climberSubsystem = new ClimberSubsystem();
+  private final ControlPanelSubsystem m_controlpanelSubsystem = new ControlPanelSubsystem();
+  private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
 
   // The autonomous routines
 
@@ -59,8 +74,9 @@ public class RobotContainer {
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
   // The driver's controller
-  XboxController m_driverController = new XboxController(OIConstants.kDriverControllerPort);
-
+  Joystick m_driverController = new Joystick(OIConstants.kDriverControllerPort);
+  Joystick m_operatorController = new Joystick(OIConstants.kOperatorControllerPort);
+  
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
@@ -75,8 +91,8 @@ public class RobotContainer {
         // hand, and turning controlled by the right.
         new DefaultDrive(
             m_robotDrive,
-            () -> m_driverController.getY(GenericHID.Hand.kLeft),
-            () -> m_driverController.getX(GenericHID.Hand.kRight)));
+            () -> m_driverController.getRawAxis(1),
+            () -> m_driverController.getRawAxis(4)));
 
     // Add commands to the autonomous command chooser
     m_chooser.addOption("Simple Auto", m_simpleAuto);
@@ -99,22 +115,79 @@ public class RobotContainer {
     // Release the hatch when the 'B' button is pressed.
     // new JoystickButton(m_driverController, Button.kB.value)
     //     .whenPressed(new ReleaseHatch(m_hatchSubsystem));
-    // While holding the shoulder button, drive at half speed
-    new JoystickButton(m_driverController, Button.kBumperRight.value)
-        .whenHeld(new HalveDriveSpeed(m_robotDrive));
-
+    
+  
+  
     // new JoystickButton(m_driverController, Button.kX.value)
     //     .whenPressed(new StartIntakeRollers(m_intakeSubsystem));
     // new JoystickButton(m_driverController, Button.kY.value)
     //     .whenPressed(new StopIntakeRollers(m_intakeSubsystem));
 
-    new JoystickButton(m_driverController, Button.kY.value)
-        .whenPressed(new IntakeArmUp(m_intakeSubsystem));
+    // While holding the shoulder button, drive at half speed
+    new JoystickButton(m_driverController, Button.kBumperRight.value)
+    .whenHeld(new HalveDriveSpeed(m_robotDrive));
+    
+    // new JoystickButton(m_driverController, Button.kY.value)
+    //     .whenPressed(new IntakeArmUp(m_intakeSubsystem));
+    
+    // new JoystickButton(m_driverController, Button.kA.value)
+    //     .whenPressed(new IntakeArmDown(m_intakeSubsystem));
+    
+    // new JoystickButton(m_driverController, Button.kB.value)
+    //     .whenPressed(new IntakeArmStop(m_intakeSubsystem));
+
+    new JoystickButton(m_driverController, Button.kX.value)
+        .whenPressed(new ShooterWheelSetSpeed(m_shooterSubsystem, 1));
+
     new JoystickButton(m_driverController, Button.kA.value)
-        .whenPressed(new IntakeArmDown(m_intakeSubsystem));
+        .whenPressed(new ShooterWheelSetSpeed(m_shooterSubsystem, 0));
+    
+    new JoystickButton(m_driverController, Button.kY.value)
+        .whenPressed(new HopperStart(m_shooterSubsystem));
+
     new JoystickButton(m_driverController, Button.kB.value)
+        .whenPressed(new HopperStop(m_shooterSubsystem));
+
+
+    // new JoystickButton(m_operatorController, Button.kA.value)
+    //     .whenPressed(new ClimberWinchDown(m_climberSubsystem));
+
+    // new JoystickButton(m_operatorController, Button.kY.value)
+    //     .whenPressed(new ClimberWinchUp(m_climberSubsystem));
+        
+    // new JoystickButton(m_operatorController, Button.kB.value)
+    //     .whenPressed(new ClimberWinchStop(m_climberSubsystem));
+
+
+
+    new JoystickButton(m_operatorController, Button.kX.value)
+        .whenPressed(new StartIntakeRollers(m_intakeSubsystem));
+
+    new JoystickButton(m_operatorController, Button.kA.value)
+        .whenPressed(new StopIntakeRollers(m_intakeSubsystem));
+
+    new JoystickButton(m_operatorController, Button.kY.value)
+        .whenPressed(new IntakeArmUp(m_intakeSubsystem));
+        
+    new JoystickButton(m_operatorController, Button.kB.value)
+        .whenPressed(new IntakeArmDown(m_intakeSubsystem));
+
+    new JoystickButton(m_operatorController, Button.kStart.value)    
         .whenPressed(new IntakeArmStop(m_intakeSubsystem));
 
+
+
+
+
+
+    //     new JoystickButton(m_operatorController, Button.kY.value)
+    //     .whenPressed(new ClimberLiftUp(m_climberSubsystem));
+    
+    // new JoystickButton(m_operatorController, Button.kA.value)
+    //     .whenPressed(new ClimberLiftDown(m_climberSubsystem));
+    
+    // new JoystickButton(m_operatorController, Button.kB.value)
+    //     .whenPressed(new ClimberLiftStop(m_climberSubsystem));
 
   }
 

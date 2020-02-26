@@ -16,16 +16,38 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+
+
+  
+  public static final class ClimberConstants {
+    public static final int kClimberWinchMoterID = 9; //sparkMax
+
+    public static final boolean kClimberWinchMotorBrakeMode = true;
+    public static final boolean kClimberWinchMotorInverted = true;
+
+
+    public static final int kClimberLiftMotorID = 11;  //victorSPX
+
+    public static final boolean kClimberLiftMotorBrakeMode = true;
+    public static final boolean kClimberLiftMotorInverted = true;
+
+  }
+
+  public static final class ControlPanel {
+    public static final int kControlPanelMotorID = 10; //sparkMax
+
+    public static final boolean kControlPanelMotorBrakeMode = true;
+    public static final boolean kControlPanelMotorInverted = true;
+  }
+
   public static final class DriveConstants {
-
-
-    public static final int kLeftMotor1ID = 1;
-    public static final int kLeftMotor2ID = 2;
-    public static final int kRightMotor1ID = 3;
-    public static final int kRightMotor2ID = 4;
+    public static final int kLeftMotor1ID = 1; //sparkMax
+    public static final int kLeftMotor2ID = 2; //sparkMax
+    public static final int kRightMotor1ID = 3; //sparkMax
+    public static final int kRightMotor2ID = 4; //sparkMax
 
     public static final boolean kLeftMotorsInverted = true;
-    public static final boolean kRightMotorsInverted = false;
+    public static final boolean kRightMotorsInverted = true;
 
     public static final boolean kBrakeMode = true;
 
@@ -41,18 +63,55 @@ public final class Constants {
         (kWheelDiameterInches * Math.PI) / (double) kEncoderCPR;
   }
 
-  public static final class HatchConstants {
-    public static final int kHatchSolenoidModule = 0;
-    public static final int[] kHatchSolenoidPorts = new int[]{0, 1};
+    public static final class IntakeConstants {
+
+      public static final int kIntakeRollersMotorID =  12; 
+
+      public static final int kIntakeArmMotorID = 7; //sparkMax
+      public static final boolean kBrakeMode = true;
   }
 
 
-  public static final class IntakeConstants {
-    public static final int kIntakeRollersMotorID =  12;
-    public static final int kIntakeArmMotorID = 7;
-    public static final boolean kBrakeMode = true;
+  public static final class ShooterConstants {
+    public static final int kShooterWheelMotorID = 6; //sparkMax
+    public static final boolean kShooterWheelMotorBrakeMode = true;
+    public static final boolean kShooterWheelMotorInverted = true;
+    public static final double kShooterWheelP = 6e-5;
+    public static final int kShooterWheelI = 0;
+    public static final int kShooterWheelD = 0;
+    public static final int kShooterWheelIz = 0;
+    public static final double kShooterWheelFF = 0.000015;
+    public static final int kShooterWheelMaxOutput = 1;
+    public static final int kShooterWheelMinOutput = -1;
+    public static final int kShooterWheelMaxRPM = 5700;
+    
+
+    public static final int kShooterHoodMotorID = 8; //sparkMax
+    public static final boolean kShooterHoodMotorBrakeMode = true;
+    public static final boolean kShooterHoodMotorInverted = true;
+    public static final double kShooterHoodP = 6e-5;
+    public static final int kShooterHoodI = 0;
+    public static final int kShooterHoodD = 0;
+    public static final int kShooterHoodIz = 0;
+    public static final double kShooterHoodFF = 0.000015;
+    public static final int kShooterHoodMaxOutput = 1;
+    public static final int kShooterHoodMinOutput = -1;
+    public static final int kShooterHoodMaxPosition = 100;
+    public static final int kShooterHoodMinPosition = 0;
+
+    public static final int kHopperMotorID = 5; //sparkMax
+    public static final boolean kHopperMotorBrakeMode = true;
+    public static final boolean kHopperMotorInverted = true;
+
+    public static final int kShooterServoID = 9; //servo
+    public static final double kShooterServoMin = 10;
+    public static final double kShooterServoMax = 100;
+    public static final double kShooterServoOpen = 30;
+    public static final double kShooterServoClosed = 70;
     
   }
+
+
 
   public static final class AutoConstants {
     public static final double kAutoDriveDistanceInches = 60;
@@ -61,6 +120,7 @@ public final class Constants {
   }
 
   public static final class OIConstants {
-    public static final int kDriverControllerPort = 1;
+    public static final int kDriverControllerPort = 0;
+    public static final int kOperatorControllerPort = 1;
   }
 }

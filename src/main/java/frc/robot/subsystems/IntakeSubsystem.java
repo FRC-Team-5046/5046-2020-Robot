@@ -33,6 +33,13 @@ public class IntakeSubsystem extends SubsystemBase {
   private CANDigitalInput m_reverseLimit;
 
   
+  public IntakeSubsystem() {
+    m_intakeArmMotor.restoreFactoryDefaults();
+    setBrakeMode(IntakeConstants.kBrakeMode);
+    setLimitMode();
+
+  }
+
   public void startIntakeRollers() {
     m_intakeRollersMotor.set(ControlMode.PercentOutput,1);
   }
@@ -76,13 +83,6 @@ public class IntakeSubsystem extends SubsystemBase {
     m_reverseLimit = m_intakeArmMotor.getReverseLimitSwitch(LimitSwitchPolarity.kNormallyClosed);
   }
   
-
-  public IntakeSubsystem() {
-    m_intakeArmMotor.restoreFactoryDefaults();
-    setBrakeMode(IntakeConstants.kBrakeMode);
-    setLimitMode();
-
-  }
 
 
   @Override
