@@ -104,10 +104,10 @@ public final class Constants {
     public static final boolean kHopperMotorInverted = true;
 
     public static final int kShooterServoID = 9; //servo
-    public static final double kShooterServoMin = 10;
+    public static final double kShooterServoMin = 1;
     public static final double kShooterServoMax = 100;
-    public static final double kShooterServoOpen = 30;
-    public static final double kShooterServoClosed = 70;
+    public static final double kShooterServoOpen = 5;
+    public static final double kShooterServoClosed = 48;
     
   }
 

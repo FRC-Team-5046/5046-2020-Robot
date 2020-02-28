@@ -33,6 +33,8 @@ import frc.robot.commands.IntakeArmDown;
 // import frc.robot.commands.StartIntakeRollers;
 // import frc.robot.commands.StopIntakeRollers;
 import frc.robot.commands.IntakeArmUp;
+import frc.robot.commands.ShooterServoClosed;
+import frc.robot.commands.ShooterServoOpen;
 import frc.robot.commands.ShooterWheelSetSpeed;
 import frc.robot.commands.StartIntakeRollers;
 import frc.robot.commands.StopIntakeRollers;
@@ -94,6 +96,7 @@ public class RobotContainer {
             () -> m_driverController.getRawAxis(1),
             () -> m_driverController.getRawAxis(4)));
 
+   
     // Add commands to the autonomous command chooser
     m_chooser.addOption("Simple Auto", m_simpleAuto);
     m_chooser.addOption("Complex Auto", m_complexAuto);
@@ -148,7 +151,11 @@ public class RobotContainer {
     new JoystickButton(m_driverController, Button.kB.value)
         .whenPressed(new HopperStop(m_shooterSubsystem));
 
+    new JoystickButton(m_operatorController, Button.kStart.value)
+        .whenPressed(new ShooterServoClosed(m_shooterSubsystem));
 
+    new JoystickButton(m_operatorController, Button.kBack.value)
+        .whenPressed(new ShooterServoOpen(m_shooterSubsystem));
     // new JoystickButton(m_operatorController, Button.kA.value)
     //     .whenPressed(new ClimberWinchDown(m_climberSubsystem));
 
@@ -172,8 +179,8 @@ public class RobotContainer {
     new JoystickButton(m_operatorController, Button.kB.value)
         .whenPressed(new IntakeArmDown(m_intakeSubsystem));
 
-    new JoystickButton(m_operatorController, Button.kStart.value)    
-        .whenPressed(new IntakeArmStop(m_intakeSubsystem));
+    // new JoystickButton(m_operatorController, Button.kStart.value)    
+    //     .whenPressed(new IntakeArmStop(m_intakeSubsystem));
 
 
 

@@ -100,6 +100,11 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
 
+  public void setShooterHoodManual(double inputSetPoint){
+    double setPoint = inputSetPoint;
+    m_ShooterHoodMotor.set(setPoint);
+  }
+
 
   public void setShooterWheelSpeed(double inputSpeed){
     m_ShooterWheelMotor.set(inputSpeed);
