@@ -38,6 +38,22 @@ public final class Constants {
 
     public static final boolean kControlPanelMotorBrakeMode = true;
     public static final boolean kControlPanelMotorInverted = true;
+
+    public static final double kControlPanelMotorP = 1;
+    public static final int kControlPanelMotorI = 0;
+    public static final int kControlPanelMotorD = 0;
+    public static final int kControlPanelMotorIz = 0;
+    public static final double kControlPanelMotorFF = 0.000015;
+    public static final double kControlPanelMotorMinOutput = -1;
+    public static final double kControlPanelMotorMaxOutput = 1;
+    public static final double kControlPanelMotorMaxPosition = 25;
+    public static final int kControlPanelMotorMinPosition = 0;
+    public static final int kControlPanelMotorPosition1 = 0;
+    public static final int kControlPanelMotorPosition2 = 15;
+    public static final int kControlPanelMotorPosition3 = 20;
+
+
+
   }
 
   public static final class DriveConstants {
@@ -89,15 +105,18 @@ public final class Constants {
     public static final int kShooterHoodMotorID = 8; //sparkMax
     public static final boolean kShooterHoodMotorBrakeMode = true;
     public static final boolean kShooterHoodMotorInverted = true;
-    public static final double kShooterHoodP = 6e-5;
+    public static final double kShooterHoodP = 1;
     public static final int kShooterHoodI = 0;
     public static final int kShooterHoodD = 0;
     public static final int kShooterHoodIz = 0;
     public static final double kShooterHoodFF = 0.000015;
-    public static final int kShooterHoodMaxOutput = 1;
-    public static final int kShooterHoodMinOutput = -1;
-    public static final int kShooterHoodMaxPosition = 100;
+    public static final double kShooterHoodMinOutput = -.5;
+    public static final double kShooterHoodMaxOutput = .5;
+    public static final double kShooterHoodMaxPosition = 25;
     public static final int kShooterHoodMinPosition = 0;
+    public static final int kShooterHoodPosition1 = 0;
+    public static final int kShooterHoodPosition2 = 15;
+    public static final int kShooterHoodPosition3 = 20;
 
     public static final int kHopperMotorID = 5; //sparkMax
     public static final boolean kHopperMotorBrakeMode = true;

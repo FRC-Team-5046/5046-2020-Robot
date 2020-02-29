@@ -32,6 +32,7 @@ public class ShooterServoOpen extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    System.out.println(m_shooterSubsystem.getAngle());
   }
 
   // Called once the command ends or is interrupted.
@@ -41,7 +42,12 @@ public class ShooterServoOpen extends CommandBase {
 
   // Returns true when the command should end.
   @Override
-  public boolean isFinished() {
+  public boolean isFinished() {      
+    
+    if (m_shooterSubsystem.getAngle() == ShooterConstants.kShooterServoOpen) 
+    return true;
+    else
     return false;
+
   }
 }

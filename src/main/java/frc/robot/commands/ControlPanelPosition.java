@@ -8,27 +8,28 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.ControlPanelSubsystem;
 
-public class ShooterWheelSetVelocity extends CommandBase {
+public class ControlPanelPosition extends CommandBase {
   /**
-   * Creates a new ShooterWheelSetVelocity.
+   * Creates a new ControlPanelPosition.
    */
 
-  private final ShooterSubsystem m_shooterSubsystem;
-  private final double setPoint;
+   private final ControlPanelSubsystem m_controlpanelSubsystem;
+   private final double setPoint;
 
-  public ShooterWheelSetVelocity(ShooterSubsystem subsystem, double inputSetPoint) {
+  public ControlPanelPosition(ControlPanelSubsystem subsystem, double inputSetPoint) {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_shooterSubsystem = subsystem;
+    m_controlpanelSubsystem = subsystem;
     setPoint = inputSetPoint;
-    addRequirements(m_shooterSubsystem);
+    addRequirements(m_controlpanelSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_shooterSubsystem.setShooterWheelVelocity(setPoint);
+    //read color
+    m_controlpanelSubsystem.setControlPanelPosition(setPoint);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -40,10 +41,11 @@ public class ShooterWheelSetVelocity extends CommandBase {
   @Override
   public void end(boolean interrupted) {
   }
-
+  
+  //Correct number of rotations and read color is correct color return true
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

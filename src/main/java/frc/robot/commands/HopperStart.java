@@ -8,6 +8,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants.ShooterConstants;
 import frc.robot.subsystems.ShooterSubsystem;
 
 public class HopperStart extends CommandBase {
@@ -25,13 +26,18 @@ public class HopperStart extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    if (m_shooterSubsystem.getAngle() == ShooterConstants.kShooterServoOpen) 
     m_shooterSubsystem.setHopperSpeed(.5);
+ 
+
+    
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_shooterSubsystem.setHopperSpeed(.5);
+   // m_shooterSubsystem.setHopperSpeed(.5);
   }
 
   // Called once the command ends or is interrupted.

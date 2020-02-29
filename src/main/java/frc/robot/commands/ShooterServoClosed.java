@@ -42,6 +42,9 @@ public class ShooterServoClosed extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+       if (m_shooterSubsystem.getAngle() == ShooterConstants.kShooterServoClosed) 
+    return true;
+    else 
     return false;
   }
 }

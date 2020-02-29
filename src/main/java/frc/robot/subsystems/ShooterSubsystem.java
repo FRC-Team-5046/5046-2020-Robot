@@ -16,8 +16,6 @@ import com.revrobotics.CANPIDController;
 import com.revrobotics.ControlType;
 import com.revrobotics.CANEncoder;
 import edu.wpi.first.wpilibj.Servo;
-
-
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ShooterSubsystem extends SubsystemBase {
@@ -100,10 +98,7 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
 
-  public void setShooterHoodManual(double inputSetPoint){
-    double setPoint = inputSetPoint;
-    m_ShooterHoodMotor.set(setPoint);
-  }
+ 
 
 
   public void setShooterWheelSpeed(double inputSpeed){

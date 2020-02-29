@@ -14,6 +14,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.*;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.CANSparkMax.IdleMode;
+import com.revrobotics.CANPIDController;
+import com.revrobotics.ControlType;
+import com.revrobotics.CANEncoder;
 
 
 public class ControlPanelSubsystem extends SubsystemBase {
@@ -22,12 +25,14 @@ public class ControlPanelSubsystem extends SubsystemBase {
    */
 
   private final CANSparkMax m_controlpanelMotor = new CANSparkMax(ControlPanel.kControlPanelMotorID,MotorType.kBrushless);
-
+  private final CANPIDController m_controlpanelPIDController = m_controlpanelMotor.getPIDController();
+  private final CANEncoder m_controlpanelEncoder = m_controlpanelMotor.getEncoder();
 
   public ControlPanelSubsystem() {
     m_controlpanelMotor.restoreFactoryDefaults();
     setInverted();
     setBrakeMode(ControlPanel.kControlPanelMotorBrakeMode);
+    setPIDs();
 
   }
 
@@ -49,6 +54,16 @@ public class ControlPanelSubsystem extends SubsystemBase {
     
   }
 
+  private void setPIDs(){
+    m_controlpanelPIDController.setP(ControlPanel.kControlPanelMotorP);
+    m_controlpanelPIDController.setI(ControlPanel.kControlPanelMotorI);
+    m_controlpanelPIDController.setD(ControlPanel.kControlPanelMotorD);
+    m_controlpanelPIDController.setIZone(ControlPanel.kControlPanelMotorIz);
+    m_controlpanelPIDController.setFF(ControlPanel.kControlPanelMotorFF);
+    m_controlpanelPIDController.setOutputRange(ControlPanel.kControlPanelMotorMinOutput, ControlPanel.kControlPanelMotorMaxOutput);
+  
+  }
+
 
   public void spinRight() {
     m_controlpanelMotor.set(1);
@@ -56,7 +71,12 @@ public class ControlPanelSubsystem extends SubsystemBase {
 
   public void spinLeft() {
     m_controlpanelMotor.set(-1);
+  }
 
+  public void setControlPanelPosition(double inputSetPoint){
+    double setPoint = inputSetPoint;
+    m_controlpanelPIDController.setReference(setPoint, ControlType.kPosition);
+    
   }
 
   @Override
