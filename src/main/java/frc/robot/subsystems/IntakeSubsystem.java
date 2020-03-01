@@ -48,10 +48,10 @@ public class IntakeSubsystem extends SubsystemBase {
   }
 
   public void intakeArmUp() {
-    m_intakeArmMotor.set(-.75);
+    m_intakeArmMotor.set(-.5);
   }
   public void intakeArmDown() {
-    m_intakeArmMotor.set(.75);
+    m_intakeArmMotor.set(.25);
   }
   public void intakeArmStop() {
     m_intakeArmMotor.set(0);

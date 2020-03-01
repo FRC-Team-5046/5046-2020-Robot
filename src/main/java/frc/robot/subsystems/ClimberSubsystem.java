@@ -73,6 +73,11 @@ public class ClimberSubsystem extends SubsystemBase {
     m_climberWinchMotor.set(0);
   }
 
+
+  public void climberWinchSpeed(double speed){
+    m_climberWinchMotor.set(speed);
+  }
+
   public void climberLiftUp() {
     m_climberLiftMotor.set(ControlMode.PercentOutput,1);
   }
@@ -83,6 +88,9 @@ public class ClimberSubsystem extends SubsystemBase {
     m_climberLiftMotor.set(ControlMode.PercentOutput,0);
   }
 
+  public void climberLiftSpeed(double speed){
+    m_climberLiftMotor.set(ControlMode.PercentOutput,speed);
+    }
 
   @Override
   public void periodic() {

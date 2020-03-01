@@ -18,12 +18,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.ShooterConstants;
-import frc.robot.commands.ClimberLiftDown;
-import frc.robot.commands.ClimberLiftStop;
-import frc.robot.commands.ClimberLiftUp;
-import frc.robot.commands.ClimberWinchDown;
-import frc.robot.commands.ClimberWinchStop;
-import frc.robot.commands.ClimberWinchUp;
+import frc.robot.commands.ClimberManual;
 import frc.robot.commands.ComplexAuto;
 import frc.robot.commands.ControlPanelPosition;
 import frc.robot.commands.DefaultDrive;
@@ -31,6 +26,7 @@ import frc.robot.commands.DriveDistance;
 import frc.robot.commands.HalveDriveSpeed;
 import frc.robot.commands.IntakeArmDown;
 import frc.robot.commands.IntakeArmUp;
+import frc.robot.commands.SetLEDColor;
 import frc.robot.commands.ShootPowerCell;
 import frc.robot.commands.ShootPowerCellStop;
 import frc.robot.commands.ShooterHoodSetPosition;
@@ -41,6 +37,7 @@ import frc.robot.subsystems.ControlPanelSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.LEDSubsystem;
 
 import static edu.wpi.first.wpilibj.XboxController.Button;
 
@@ -58,6 +55,7 @@ public class RobotContainer {
         private final ClimberSubsystem m_climberSubsystem = new ClimberSubsystem();
         private final ControlPanelSubsystem m_controlpanelSubsystem = new ControlPanelSubsystem();
         private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
+        private final LEDSubsystem m_ledSubsystem = new LEDSubsystem();
 
         // The autonomous routines
 
@@ -91,7 +89,10 @@ public class RobotContainer {
                                 // hand, and turning controlled by the right.
                                 new DefaultDrive(m_robotDrive, () -> m_driverController.getRawAxis(1),
                                                 () -> m_driverController.getRawAxis(4)));
-
+              
+                m_climberSubsystem.setDefaultCommand(
+                        new ClimberManual(m_climberSubsystem,m_operatorController.getRawAxis(1),m_operatorController.getRawAxis(5)));
+                        
                 // Add commands to the autonomous command chooser
                 m_chooser.addOption("Simple Auto", m_simpleAuto);
                 m_chooser.addOption("Complex Auto", m_complexAuto);
@@ -137,12 +138,27 @@ public class RobotContainer {
         new JoystickButton(m_operatorController, Button.kA.value)
                 .whenPressed(new IntakeArmDown(m_intakeSubsystem));
 
-        new JoystickButton(m_operatorController, Button.kStart.value)    
-                .whenPressed(new ControlPanelPosition(m_controlpanelSubsystem,0));
+       
+        // new JoystickButton(m_operatorController, Button.kStart.value)    
+        //         .whenPressed(new ControlPanelPosition(m_controlpanelSubsystem,0));
 
-        new JoystickButton(m_operatorController, Button.kBack.value)
-                .whenPressed(new ControlPanelPosition(m_controlpanelSubsystem,40));
+        // new JoystickButton(m_operatorController, Button.kBack.value)
+        //         .whenPressed(new ControlPanelPosition(m_controlpanelSubsystem,40));
 
+        // new JoystickButton(m_operatorController, Button.kA.value)
+        //         .whenPressed(new SetLEDColor(m_ledSubsystem, .61));
+
+        // new JoystickButton(m_operatorController, Button.kB.value)
+        //         .whenPressed(new SetLEDColor(m_ledSubsystem, .77));
+
+        // new JoystickButton(m_operatorController, Button.kX.value)
+        //         .whenPressed(new SetLEDColor(m_ledSubsystem, .87));
+
+        // new JoystickButton(m_operatorController, Button.kY.value)
+        //         .whenPressed(new SetLEDColor(m_ledSubsystem, .93)); 
+
+        new JoystickButton(m_driverController, Button.kA.value)
+                .whenPressed(new SetLEDColor(m_ledSubsystem));
 
 
 
