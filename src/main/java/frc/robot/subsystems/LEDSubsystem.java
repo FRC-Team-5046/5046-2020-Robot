@@ -17,21 +17,13 @@ public class LEDSubsystem extends SubsystemBase {
   /**
    * Creates a new LEDSubsystem.
    */
-  CANifier m_Canifier = new CANifier(LEDsConstants.kCANifierID);
+
 
   public LEDSubsystem() {
 
   }
 
-  public void setColorA(){
-    m_Canifier.setLEDOutput(50, LEDChannel.LEDChannelA);
-  }
-  public void setColorB(){
-    m_Canifier.setLEDOutput(50, LEDChannel.LEDChannelB);
-  }
-  public void setColorC(){
-    m_Canifier.setLEDOutput(50, LEDChannel.LEDChannelC);
-  }
+
 
   @Override
   public void periodic() {

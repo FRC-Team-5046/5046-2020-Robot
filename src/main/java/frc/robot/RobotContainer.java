@@ -26,7 +26,6 @@ import frc.robot.commands.DriveDistance;
 import frc.robot.commands.HalveDriveSpeed;
 import frc.robot.commands.IntakeArmDown;
 import frc.robot.commands.IntakeArmUp;
-import frc.robot.commands.SetLEDColor;
 import frc.robot.commands.ShootPowerCell;
 import frc.robot.commands.ShootPowerCellStop;
 import frc.robot.commands.ShooterHoodSetPosition;
@@ -157,8 +156,6 @@ public class RobotContainer {
         // new JoystickButton(m_operatorController, Button.kY.value)
         //         .whenPressed(new SetLEDColor(m_ledSubsystem, .93)); 
 
-        new JoystickButton(m_driverController, Button.kA.value)
-                .whenPressed(new SetLEDColor(m_ledSubsystem));
 
 
 
