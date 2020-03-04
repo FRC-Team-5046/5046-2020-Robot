@@ -34,7 +34,7 @@ public final class Constants {
     public static final int kClimberLiftMotorID = 11;  //victorSPX
 
     public static final boolean kClimberLiftMotorBrakeMode = true;
-    public static final boolean kClimberLiftMotorInverted = true;
+    public static final boolean kClimberLiftMotorInverted = false;
 
   }
 
@@ -133,13 +133,14 @@ public final class Constants {
     public static final int kShooterServoID = 9; //servo
     public static final double kShooterServoMin = 1;
     public static final double kShooterServoMax = 100;
-    public static final double kShooterServoOpen = 5;
-    public static final double kShooterServoClosed = 48;
+    public static final double kShooterServoOpen = 48;
+    public static final double kShooterServoClosed = 5;
     
   }
 
   public static final class LEDsConstants{
     public static final int kCANifierID = 20;
+    
     
   }
 

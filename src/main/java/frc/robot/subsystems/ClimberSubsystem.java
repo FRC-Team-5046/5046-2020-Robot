@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ClimberConstants;
 
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
@@ -88,8 +89,10 @@ public class ClimberSubsystem extends SubsystemBase {
     m_climberLiftMotor.set(ControlMode.PercentOutput,0);
   }
 
-  public void climberLiftSpeed(double speed){
-    m_climberLiftMotor.set(ControlMode.PercentOutput,speed);
+  public void climberManual(double winch, double lift){
+    
+    m_climberLiftMotor.set(ControlMode.PercentOutput,lift);
+    m_climberWinchMotor.set(winch);
     }
 
   @Override

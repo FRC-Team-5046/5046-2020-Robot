@@ -14,7 +14,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANPIDController;
 import com.revrobotics.ControlType;
-import com.revrobotics.CANEncoder;
+//import com.revrobotics.CANEncoder;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -27,9 +27,9 @@ public class ShooterSubsystem extends SubsystemBase {
   private final CANSparkMax m_HopperMotor = new CANSparkMax(ShooterConstants.kHopperMotorID,MotorType.kBrushless);
   private final Servo m_ShooterServo = new Servo(ShooterConstants.kShooterServoID);
   private final CANPIDController m_ShooterWheelPIDController = m_ShooterWheelMotor.getPIDController();
-  private final CANEncoder m_ShooterWheelEncoder = m_ShooterWheelMotor.getEncoder();
+//  private final CANEncoder m_ShooterWheelEncoder = m_ShooterWheelMotor.getEncoder();
   private final CANPIDController m_ShooterHoodPIDController = m_ShooterHoodMotor.getPIDController();
-  private final CANEncoder m_ShooterHoodEncoder = m_ShooterHoodMotor.getEncoder();
+// private final CANEncoder m_ShooterHoodEncoder = m_ShooterHoodMotor.getEncoder();
 
 
   public ShooterSubsystem() {

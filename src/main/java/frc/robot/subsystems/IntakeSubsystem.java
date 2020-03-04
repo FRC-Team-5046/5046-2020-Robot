@@ -8,13 +8,13 @@
 package frc.robot.subsystems;
 
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IntakeConstants;
 
 import com.revrobotics.*;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.CANSparkMax.IdleMode;
-import com.revrobotics.CANDigitalInput;
 import com.revrobotics.CANDigitalInput.LimitSwitchPolarity;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
@@ -29,9 +29,7 @@ public class IntakeSubsystem extends SubsystemBase {
   private final VictorSPX m_intakeRollersMotor = new VictorSPX(IntakeConstants.kIntakeRollersMotorID);
   private final CANSparkMax m_intakeArmMotor = new CANSparkMax(IntakeConstants.kIntakeArmMotorID,MotorType.kBrushless);
   
-  private CANDigitalInput m_forwardLimit;
-  private CANDigitalInput m_reverseLimit;
-
+  
   
   public IntakeSubsystem() {
     m_intakeArmMotor.restoreFactoryDefaults();
@@ -79,8 +77,8 @@ public class IntakeSubsystem extends SubsystemBase {
      *  com.revrobotics.CANDigitalInput.LimitSwitchPolarity.kNormallyOpen
      *  com.revrobotics.CANDigitalInput.LimitSwitchPolarity.kNormallyClosed
      */
-    m_forwardLimit = m_intakeArmMotor.getForwardLimitSwitch(LimitSwitchPolarity.kNormallyClosed);
-    m_reverseLimit = m_intakeArmMotor.getReverseLimitSwitch(LimitSwitchPolarity.kNormallyClosed);
+    m_intakeArmMotor.getForwardLimitSwitch(LimitSwitchPolarity.kNormallyClosed);
+    m_intakeArmMotor.getReverseLimitSwitch(LimitSwitchPolarity.kNormallyClosed);
   }
   
 
@@ -88,5 +86,9 @@ public class IntakeSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Voltage", m_intakeArmMotor.getBusVoltage());
+    SmartDashboard.putNumber("Temperature", m_intakeArmMotor.getMotorTemperature());
+    SmartDashboard.putNumber("Output", m_intakeArmMotor.getAppliedOutput());
+    
   }
 }

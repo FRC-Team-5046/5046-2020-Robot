@@ -10,7 +10,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.LEDsConstants;
 import com.ctre.phoenix.CANifier;
-import com.ctre.phoenix.CANifier.LEDChannel;
+
 
 
 public class LEDSubsystem extends SubsystemBase {
@@ -18,12 +18,20 @@ public class LEDSubsystem extends SubsystemBase {
    * Creates a new LEDSubsystem.
    */
 
+private final CANifier m_CaNifier = new CANifier(LEDsConstants.kCANifierID); 
 
   public LEDSubsystem() {
 
   }
 
-
+  public void setColor(double red, double green, double blue){
+    double redPercent = red/255;
+    double greenPercent = green/255;
+    double bluePercent = blue/255;
+    m_CaNifier.setLEDOutput(redPercent, CANifier.LEDChannel.LEDChannelA);
+    m_CaNifier.setLEDOutput(greenPercent, CANifier.LEDChannel.LEDChannelB);
+    m_CaNifier.setLEDOutput(bluePercent, CANifier.LEDChannel.LEDChannelC);
+  }
 
   @Override
   public void periodic() {

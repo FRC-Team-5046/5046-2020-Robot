@@ -20,12 +20,11 @@ import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.commands.ClimberManual;
 import frc.robot.commands.ComplexAuto;
-import frc.robot.commands.ControlPanelPosition;
 import frc.robot.commands.DefaultDrive;
 import frc.robot.commands.DriveDistance;
-import frc.robot.commands.HalveDriveSpeed;
 import frc.robot.commands.IntakeArmDown;
 import frc.robot.commands.IntakeArmUp;
+import frc.robot.commands.LEDSetColor;
 import frc.robot.commands.ShootPowerCell;
 import frc.robot.commands.ShootPowerCellStop;
 import frc.robot.commands.ShooterHoodSetPosition;
@@ -90,7 +89,8 @@ public class RobotContainer {
                                                 () -> m_driverController.getRawAxis(4)));
               
                 m_climberSubsystem.setDefaultCommand(
-                        new ClimberManual(m_climberSubsystem,m_operatorController.getRawAxis(1),m_operatorController.getRawAxis(5)));
+                                new ClimberManual(m_climberSubsystem, () -> m_operatorController.getRawAxis(1),
+                                                () -> m_operatorController.getRawAxis(5)));
                         
                 // Add commands to the autonomous command chooser
                 m_chooser.addOption("Simple Auto", m_simpleAuto);
@@ -113,16 +113,19 @@ public class RobotContainer {
                 // Button.kBumperRight.value).whenHeld(new HalveDriveSpeed(m_robotDrive));
   
         new JoystickButton(m_driverController, Button.kBumperLeft.value)
-                .whenPressed(new ShootPowerCellStop(m_shooterSubsystem));
+                .whenPressed(new ShootPowerCellStop(m_shooterSubsystem))
+                .whenPressed(new LEDSetColor(m_ledSubsystem,0,0,255));
 
         new JoystickButton(m_driverController, Button.kBumperRight.value)
                 .whenPressed(new ShootPowerCell(m_shooterSubsystem));
 
         new JoystickButton(m_driverController, Button.kBack.value)
-                .whenPressed(new ShooterHoodSetPosition(m_shooterSubsystem, ShooterConstants.kShooterHoodPosition1));
+                .whenPressed(new ShooterHoodSetPosition(m_shooterSubsystem, ShooterConstants.kShooterHoodPosition1))
+                .whenPressed(new LEDSetColor(m_ledSubsystem,255,0,0));
 
         new JoystickButton(m_driverController, Button.kStart.value)
-                .whenPressed(new ShooterHoodSetPosition(m_shooterSubsystem, ShooterConstants.kShooterHoodPosition2));
+                .whenPressed(new ShooterHoodSetPosition(m_shooterSubsystem, ShooterConstants.kShooterHoodPosition2))
+                .whenPressed(new LEDSetColor(m_ledSubsystem,0,255,0));
 
 
         new JoystickButton(m_operatorController, Button.kX.value)

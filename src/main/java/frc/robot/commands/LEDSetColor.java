@@ -8,32 +8,37 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.ClimberSubsystem;
+import frc.robot.subsystems.LEDSubsystem;
 
-public class ClimberWinchManual extends CommandBase {
+public class LEDSetColor extends CommandBase {
   /**
-   * Creates a new ClimberWinchUp.
+   * Creates a new LEDSetColor.
    */
-  private final ClimberSubsystem m_climberSubsystem;
-  private final double setSpeed;
 
-  public ClimberWinchManual(ClimberSubsystem subsystem, double inputSetSpeed) {
-    m_climberSubsystem = subsystem;
-    setSpeed = inputSetSpeed;
+   private final LEDSubsystem m_ledSubsystem;
+   private final int red;
+   private final int green;
+   private final int blue;
+  
+
+  public LEDSetColor(LEDSubsystem subsystem,int inputRed,int inputGreen,int inputBlue) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_climberSubsystem);
+    m_ledSubsystem = subsystem;
+    addRequirements(m_ledSubsystem);
+    red = inputRed;
+    green = inputGreen;
+    blue = inputBlue;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    
+    m_ledSubsystem.setColor(red, green, blue);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_climberSubsystem.climberWinchSpeed(setSpeed);
   }
 
   // Called once the command ends or is interrupted.

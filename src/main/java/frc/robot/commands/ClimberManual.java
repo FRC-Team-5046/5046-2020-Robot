@@ -7,6 +7,8 @@
 
 package frc.robot.commands;
 
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ClimberSubsystem;
 
@@ -14,15 +16,18 @@ public class ClimberManual extends CommandBase {
   /**
    * Creates a new ClimberWinchUp.
    */
+  private final DoubleSupplier m_lift;
+  private final DoubleSupplier m_winch;
+
   private final ClimberSubsystem m_climberSubsystem;
-  private final double setLiftSpeed;
-  private final double setWinchSpeed;
   
 
-  public ClimberManual(ClimberSubsystem subsystem, double inputLiftSetSpeed, double inputWinchSetSpeed) {
+  public ClimberManual(ClimberSubsystem subsystem, DoubleSupplier lift, DoubleSupplier winch) {
     m_climberSubsystem = subsystem;
-    setLiftSpeed = inputLiftSetSpeed;
-    setWinchSpeed = inputWinchSetSpeed;
+    m_lift = lift;
+    m_winch = winch;
+
+   
   
 
     // Use addRequirements() here to declare subsystem dependencies.
@@ -38,10 +43,11 @@ public class ClimberManual extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_climberSubsystem.climberLiftSpeed(setLiftSpeed);
-    m_climberSubsystem.climberWinchSpeed(setWinchSpeed);
-    System.out.println("SetLiftSpeed = " +setLiftSpeed);
-    System.out.println("SetWinchSpeed = " +setWinchSpeed);
+    m_climberSubsystem.climberManual(m_winch.getAsDouble(), m_lift.getAsDouble());
+
+   
+  
+   
     
   }
 
