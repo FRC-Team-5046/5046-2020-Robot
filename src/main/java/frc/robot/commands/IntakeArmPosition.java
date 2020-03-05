@@ -10,15 +10,18 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.IntakeSubsystem;
 
-public class IntakeArmDown extends CommandBase {
+public class IntakeArmPosition extends CommandBase {
   /**
    * Creates a new IntakeArmDown.
    */
 
+   private final double setPoint;
+
   private final IntakeSubsystem m_intakeSubsystem;
 
-  public IntakeArmDown(IntakeSubsystem subsystem) {
+  public IntakeArmPosition(IntakeSubsystem subsystem, double inputSetPoint) {
     m_intakeSubsystem = subsystem;
+    setPoint = inputSetPoint;
     addRequirements(m_intakeSubsystem);
 
     // Use addRequirements() here to declare subsystem dependencies.
@@ -27,7 +30,7 @@ public class IntakeArmDown extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_intakeSubsystem.intakeArmDown();
+    m_intakeSubsystem.intakeArmPostion(setPoint);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -44,6 +47,6 @@ public class IntakeArmDown extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }

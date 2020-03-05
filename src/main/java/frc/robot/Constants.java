@@ -85,6 +85,19 @@ public final class Constants {
     public static final double kEncoderDistancePerPulse =
         // Assumes the encoders are directly mounted on the wheel shafts
         (kWheelDiameterInches * Math.PI) / (double) kEncoderCPR;
+
+
+    
+    public static final double kP = 1;
+    public static final int kI = 0;
+    public static final int kD = 0;
+    public static final int kIz = 0;
+    public static final double kFF = 0.000015;
+    public static final double kMinOutput = -1;
+    public static final double kMaxOutput = 1;
+    public static final double kPosition1 = 40;    
+
+
   }
 
     public static final class IntakeConstants {
@@ -93,6 +106,20 @@ public final class Constants {
 
       public static final int kIntakeArmMotorID = 7; //sparkMax
       public static final boolean kBrakeMode = true;
+
+      public static final double kIntakeArmMotorP = 1;
+      public static final int kIntakeArmMotorI = 0;
+      public static final int kIntakeArmMotorD = 0;
+      public static final int kIntakeArmMotorIz = 0;
+      public static final double kIntakeArmMotorFF = 0.000015;
+      public static final double kIntakeArmMotorMinOutput = -.5;
+      public static final double kIntakeArmMotorMaxOutput = .25;
+      public static final double kIntakeArmMotorMaxPosition = 40;
+      public static final int kIntakeArmMotorMinPosition = 0;
+      public static final int kIntakeArmMotorPosition1 = 2;
+      public static final int kIntakeArmMotorPosition2 = 20;
+      public static final int kIntakeArmMotorPosition3 = 35;
+
   }
 
 
@@ -122,8 +149,8 @@ public final class Constants {
     public static final double kShooterHoodMaxOutput = .5;
     public static final double kShooterHoodMaxPosition = 25;
     public static final int kShooterHoodMinPosition = 0;
-    public static final int kShooterHoodPosition1 = 0;
-    public static final int kShooterHoodPosition2 = 15;
+    public static final int kShooterHoodPosition1 = 4;
+    public static final int kShooterHoodPosition2 = 12;
     public static final int kShooterHoodPosition3 = 20;
 
     public static final int kHopperMotorID = 5; //sparkMax

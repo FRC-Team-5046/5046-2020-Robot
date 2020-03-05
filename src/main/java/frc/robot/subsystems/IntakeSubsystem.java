@@ -16,6 +16,7 @@ import com.revrobotics.*;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANDigitalInput.LimitSwitchPolarity;
+import com.revrobotics.CANPIDController;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
@@ -28,13 +29,15 @@ public class IntakeSubsystem extends SubsystemBase {
 
   private final VictorSPX m_intakeRollersMotor = new VictorSPX(IntakeConstants.kIntakeRollersMotorID);
   private final CANSparkMax m_intakeArmMotor = new CANSparkMax(IntakeConstants.kIntakeArmMotorID,MotorType.kBrushless);
-  
+  private final CANPIDController m_intakeArmPIDController = m_intakeArmMotor.getPIDController();
   
   
   public IntakeSubsystem() {
     m_intakeArmMotor.restoreFactoryDefaults();
     setBrakeMode(IntakeConstants.kBrakeMode);
     setLimitMode();
+    setPIDs();
+  
 
   }
 
@@ -53,6 +56,10 @@ public class IntakeSubsystem extends SubsystemBase {
   }
   public void intakeArmStop() {
     m_intakeArmMotor.set(0);
+  }
+  public void intakeArmPostion(double inputSetPoint){
+    double setPoint = inputSetPoint;
+    m_intakeArmPIDController.setReference(setPoint, ControlType.kPosition);
   }
 
   private void setBrakeMode(boolean shouldBrakeMode)
@@ -81,7 +88,14 @@ public class IntakeSubsystem extends SubsystemBase {
     m_intakeArmMotor.getReverseLimitSwitch(LimitSwitchPolarity.kNormallyClosed);
   }
   
-
+  private void setPIDs(){
+    m_intakeArmPIDController.setP(IntakeConstants.kIntakeArmMotorP);
+    m_intakeArmPIDController.setI(IntakeConstants.kIntakeArmMotorI);
+    m_intakeArmPIDController.setD(IntakeConstants.kIntakeArmMotorD);
+    m_intakeArmPIDController.setIZone(IntakeConstants.kIntakeArmMotorIz);
+    m_intakeArmPIDController.setFF(IntakeConstants.kIntakeArmMotorFF);
+    m_intakeArmPIDController.setOutputRange(IntakeConstants.kIntakeArmMotorMinOutput, IntakeConstants.kIntakeArmMotorMaxOutput);
+  }  
 
   @Override
   public void periodic() {
@@ -89,6 +103,7 @@ public class IntakeSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("Voltage", m_intakeArmMotor.getBusVoltage());
     SmartDashboard.putNumber("Temperature", m_intakeArmMotor.getMotorTemperature());
     SmartDashboard.putNumber("Output", m_intakeArmMotor.getAppliedOutput());
+    SmartDashboard.putNumber("Position",m_intakeArmMotor.getEncoder().getPosition());
     
   }
 }

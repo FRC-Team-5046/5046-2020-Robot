@@ -22,7 +22,9 @@ import frc.robot.commands.ClimberManual;
 import frc.robot.commands.ComplexAuto;
 import frc.robot.commands.DefaultDrive;
 import frc.robot.commands.DriveDistance;
+import frc.robot.commands.DrivePosition;
 import frc.robot.commands.IntakeArmDown;
+import frc.robot.commands.IntakeArmPosition;
 import frc.robot.commands.IntakeArmUp;
 import frc.robot.commands.LEDSetColor;
 import frc.robot.commands.ShootPowerCell;
@@ -64,7 +66,7 @@ public class RobotContainer {
 
         // A complex auto routine that drives forward, drops a hatch, and then drives
         // backward.
-        private final Command m_complexAuto = new ComplexAuto(m_robotDrive); // include other subsytems
+        private final Command m_complexAuto = new ComplexAuto(m_robotDrive,m_intakeSubsystem,m_shooterSubsystem); // include other subsytems
 
         // A chooser for autonomous commands
         SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -119,11 +121,11 @@ public class RobotContainer {
         new JoystickButton(m_driverController, Button.kBumperRight.value)
                 .whenPressed(new ShootPowerCell(m_shooterSubsystem));
 
-        new JoystickButton(m_driverController, Button.kBack.value)
+        new JoystickButton(m_operatorController, Button.kBack.value)
                 .whenPressed(new ShooterHoodSetPosition(m_shooterSubsystem, ShooterConstants.kShooterHoodPosition1))
                 .whenPressed(new LEDSetColor(m_ledSubsystem,255,0,0));
 
-        new JoystickButton(m_driverController, Button.kStart.value)
+        new JoystickButton(m_operatorController, Button.kStart.value)
                 .whenPressed(new ShooterHoodSetPosition(m_shooterSubsystem, ShooterConstants.kShooterHoodPosition2))
                 .whenPressed(new LEDSetColor(m_ledSubsystem,0,255,0));
 
@@ -146,18 +148,17 @@ public class RobotContainer {
 
         // new JoystickButton(m_operatorController, Button.kBack.value)
         //         .whenPressed(new ControlPanelPosition(m_controlpanelSubsystem,40));
+        
+        // new JoystickButton(m_operatorController, Button.kBumperLeft.value)
+        //         .whenPressed(new IntakeArmPosition(m_intakeSubsystem, 20));
 
-        // new JoystickButton(m_operatorController, Button.kA.value)
-        //         .whenPressed(new SetLEDColor(m_ledSubsystem, .61));
+        // new JoystickButton(m_operatorController, Button.kBumperLeft.value)
+        //         .whenPressed(new DrivePosition(m_robotDrive,0,0));
 
-        // new JoystickButton(m_operatorController, Button.kB.value)
-        //         .whenPressed(new SetLEDColor(m_ledSubsystem, .77));
+        // new JoystickButton(m_operatorController, Button.kBumperRight.value)
+        //         .whenPressed(new DrivePosition(m_robotDrive,40,-40));
 
-        // new JoystickButton(m_operatorController, Button.kX.value)
-        //         .whenPressed(new SetLEDColor(m_ledSubsystem, .87));
 
-        // new JoystickButton(m_operatorController, Button.kY.value)
-        //         .whenPressed(new SetLEDColor(m_ledSubsystem, .93)); 
 
 
 
