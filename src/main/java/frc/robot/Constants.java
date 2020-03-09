@@ -149,7 +149,7 @@ public final class Constants {
     public static final double kShooterHoodMaxOutput = .5;
     public static final double kShooterHoodMaxPosition = 25;
     public static final int kShooterHoodMinPosition = 0;
-    public static final int kShooterHoodPosition1 = 4;
+    public static final int kShooterHoodPosition1 = 5;
     public static final int kShooterHoodPosition2 = 12;
     public static final int kShooterHoodPosition3 = 20;
 

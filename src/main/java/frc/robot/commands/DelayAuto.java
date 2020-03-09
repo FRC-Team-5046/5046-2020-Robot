@@ -19,14 +19,14 @@ import frc.robot.Constants.ShooterConstants;
 /**
  * A complex auto command that drives forward, releases a hatch, and then drives backward.
  */
-public class ComplexAuto extends SequentialCommandGroup {
+public class DelayAuto extends SequentialCommandGroup {
   /**
    * Creates a new ComplexAuto.
    *
    * @param drive The drive subsystem this command will run on
    * @param hatch The hatch subsystem this command will run on
    */
-  public ComplexAuto(DriveSubsystem drive, IntakeSubsystem intake, ShooterSubsystem shooter)  //after drive, include other subsystems
+  public DelayAuto(DriveSubsystem drive, IntakeSubsystem intake, ShooterSubsystem shooter)  //after drive, include other subsystems
    {
     addCommands(
         // Drive forward the specified distance
@@ -42,18 +42,12 @@ public class ComplexAuto extends SequentialCommandGroup {
         new IntakeArmDown(intake), 
         new WaitCommand(1),   
         new ShooterHoodSetPosition(shooter, ShooterConstants.kShooterHoodPosition2 ), 
+        new WaitCommand(5),
         new ShootPowerCell(shooter),  
         new WaitCommand(3),   
         new ShootPowerCellStop(shooter),
-        new WaitCommand(1),        
-         new DriveTankTimed(drive,() ->0.5,() ->0.0),
-        // new DriveTankTimed(drive,() ->.5,() ->0.0),
-        new WaitCommand(3),
-        // new DriveTankTimed(drive,0,0));
-        new DriveTankStop(drive,() ->0.0,() ->0.0),
-        new WaitCommand(1),
-        new ShooterHoodSetPosition(shooter, ShooterConstants.kShooterHoodPosition1 ));
-        
+        new WaitCommand(1));      
+        // new DrivePosition(drive,10,-10));
   }
 
 }

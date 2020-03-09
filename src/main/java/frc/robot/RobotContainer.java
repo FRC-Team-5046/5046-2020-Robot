@@ -21,6 +21,7 @@ import frc.robot.Constants.ShooterConstants;
 import frc.robot.commands.ClimberManual;
 import frc.robot.commands.ComplexAuto;
 import frc.robot.commands.DefaultDrive;
+import frc.robot.commands.DelayAuto;
 import frc.robot.commands.DriveDistance;
 import frc.robot.commands.DrivePosition;
 import frc.robot.commands.IntakeArmDown;
@@ -30,6 +31,7 @@ import frc.robot.commands.LEDSetColor;
 import frc.robot.commands.ShootPowerCell;
 import frc.robot.commands.ShootPowerCellStop;
 import frc.robot.commands.ShooterHoodSetPosition;
+import frc.robot.commands.SideAuto;
 import frc.robot.commands.StartIntakeRollers;
 import frc.robot.commands.StopIntakeRollers;
 import frc.robot.subsystems.ClimberSubsystem;
@@ -67,6 +69,8 @@ public class RobotContainer {
         // A complex auto routine that drives forward, drops a hatch, and then drives
         // backward.
         private final Command m_complexAuto = new ComplexAuto(m_robotDrive,m_intakeSubsystem,m_shooterSubsystem); // include other subsytems
+        private final Command m_sideAuto = new SideAuto(m_robotDrive,m_intakeSubsystem,m_shooterSubsystem); // include other subsytems
+        private final Command m_delayAuto = new DelayAuto(m_robotDrive,m_intakeSubsystem,m_shooterSubsystem); // include other subsytems
 
         // A chooser for autonomous commands
         SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -97,6 +101,9 @@ public class RobotContainer {
                 // Add commands to the autonomous command chooser
                 m_chooser.addOption("Simple Auto", m_simpleAuto);
                 m_chooser.addOption("Complex Auto", m_complexAuto);
+                m_chooser.addOption("Side Auto", m_sideAuto);
+                m_chooser.addOption("Delay Auto", m_delayAuto);
+                
 
                 // Put the chooser on the dashboard
                 Shuffleboard.getTab("Autonomous").add(m_chooser);

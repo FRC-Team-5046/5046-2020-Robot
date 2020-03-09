@@ -27,7 +27,7 @@ public class HopperStart extends CommandBase {
   @Override
   public void initialize() {
     if (m_shooterSubsystem.getAngle() == ShooterConstants.kShooterServoOpen) 
-    m_shooterSubsystem.setHopperSpeed(.5);
+    m_shooterSubsystem.setHopperSpeed(1);
  
 
     

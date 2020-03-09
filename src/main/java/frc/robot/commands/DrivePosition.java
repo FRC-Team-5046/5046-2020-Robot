@@ -9,6 +9,7 @@ package frc.robot.commands;
 
 import java.util.function.DoubleSupplier;
 
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.robot.subsystems.DriveSubsystem;
@@ -42,6 +43,7 @@ public class DrivePosition extends CommandBase {
 
   @Override
   public void execute() {
+   
     m_drive.driveDistance(m_left, m_right);
   }
 
@@ -53,6 +55,7 @@ public class DrivePosition extends CommandBase {
 
   @Override
   public boolean isFinished() {
+    m_drive.arcadeDrive(0, 0);
     return Math.abs(m_drive.getAverageEncoderDistance()) >= m_distance;
   }
 

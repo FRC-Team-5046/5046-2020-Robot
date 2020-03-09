@@ -8,10 +8,10 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Encoder;
-//import edu.wpi.first.wpilibj.PWMVictorSPX;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+import java.util.function.DoubleSupplier;
 
 import com.revrobotics.*;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -73,16 +73,19 @@ public class DriveSubsystem extends SubsystemBase {
   /**
    * Drives the robot using arcade controls.
    *
-   * @param fwd the commanded forward movement
-   * @param rot the commanded rotation
+   * @param d the commanded forward movement
+   * @param e the commanded rotation
    */
-  public void arcadeDrive(double fwd, double rot) {
-    m_drive.arcadeDrive(fwd, -rot *.75);
+  public void arcadeDrive(double d, double e) {
+    m_drive.arcadeDrive(d, -e *.75);
   }
+
+
 
   public void driveDistance(double left,double right){
     m_leftMotorsPIDController.setReference(left, ControlType.kPosition);
     m_rightMotorsPIDController.setReference(right, ControlType.kPosition);
+    //m_drive.feedWatchdog();
     
   }
   /**
@@ -173,4 +176,7 @@ public class DriveSubsystem extends SubsystemBase {
       m_rightMotor2.setIdleMode(IdleMode.kCoast);
     	}
 	}
+
+public void arcadeDrive(int i, int j) {
+}
 }
