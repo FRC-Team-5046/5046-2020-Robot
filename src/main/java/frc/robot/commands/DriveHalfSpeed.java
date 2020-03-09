@@ -11,10 +11,10 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 import frc.robot.subsystems.DriveSubsystem;
 
-public class HalveDriveSpeed extends CommandBase {
+public class DriveHalfSpeed extends CommandBase {
   private final DriveSubsystem m_drive;
 
-  public HalveDriveSpeed(DriveSubsystem drive) {
+  public DriveHalfSpeed(DriveSubsystem drive) {
     m_drive = drive;
   }
 

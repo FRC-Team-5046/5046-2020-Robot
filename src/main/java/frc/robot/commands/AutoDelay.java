@@ -19,14 +19,15 @@ import frc.robot.Constants.ShooterConstants;
 /**
  * A complex auto command that drives forward, releases a hatch, and then drives backward.
  */
-public class DelayAuto extends SequentialCommandGroup {
+public class AutoDelay extends SequentialCommandGroup {
   /**
    * Creates a new ComplexAuto.
    *
    * @param drive The drive subsystem this command will run on
-   * @param hatch The hatch subsystem this command will run on
+   * @param intake The intake subsystem this command will run on
+   * @param shooter The shooter subsystem this command will run on
    */
-  public DelayAuto(DriveSubsystem drive, IntakeSubsystem intake, ShooterSubsystem shooter)  //after drive, include other subsystems
+  public AutoDelay(DriveSubsystem drive, IntakeSubsystem intake, ShooterSubsystem shooter)  //after drive, include other subsystems
    {
     addCommands(
         // Drive forward the specified distance

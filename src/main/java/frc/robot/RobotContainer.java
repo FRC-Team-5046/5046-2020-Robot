@@ -19,23 +19,22 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.commands.ClimberManual;
-import frc.robot.commands.ComplexAuto;
-import frc.robot.commands.DefaultDrive;
-import frc.robot.commands.DelayAuto;
+import frc.robot.commands.AutoComplex;
+import frc.robot.commands.DriveDefault;
+import frc.robot.commands.AutoDelay;
 import frc.robot.commands.DriveDistance;
-import frc.robot.commands.DrivePosition;
+
 import frc.robot.commands.IntakeArmDown;
-import frc.robot.commands.IntakeArmPosition;
+
 import frc.robot.commands.IntakeArmUp;
 import frc.robot.commands.LEDSetColor;
 import frc.robot.commands.ShootPowerCell;
 import frc.robot.commands.ShootPowerCellStop;
 import frc.robot.commands.ShooterHoodSetPosition;
-import frc.robot.commands.SideAuto;
-import frc.robot.commands.StartIntakeRollers;
-import frc.robot.commands.StopIntakeRollers;
+import frc.robot.commands.AutoSide;
+import frc.robot.commands.IntakeRollersStart;
+import frc.robot.commands.IntakeRollersStop;
 import frc.robot.subsystems.ClimberSubsystem;
-import frc.robot.subsystems.ControlPanelSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -55,7 +54,7 @@ public class RobotContainer {
         private final DriveSubsystem m_robotDrive = new DriveSubsystem();
         private final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
         private final ClimberSubsystem m_climberSubsystem = new ClimberSubsystem();
-        private final ControlPanelSubsystem m_controlpanelSubsystem = new ControlPanelSubsystem();
+//        private final ControlPanelSubsystem m_controlpanelSubsystem = new ControlPanelSubsystem();
         private final ShooterSubsystem m_shooterSubsystem = new ShooterSubsystem();
         private final LEDSubsystem m_ledSubsystem = new LEDSubsystem();
 
@@ -68,9 +67,9 @@ public class RobotContainer {
 
         // A complex auto routine that drives forward, drops a hatch, and then drives
         // backward.
-        private final Command m_complexAuto = new ComplexAuto(m_robotDrive,m_intakeSubsystem,m_shooterSubsystem); // include other subsytems
-        private final Command m_sideAuto = new SideAuto(m_robotDrive,m_intakeSubsystem,m_shooterSubsystem); // include other subsytems
-        private final Command m_delayAuto = new DelayAuto(m_robotDrive,m_intakeSubsystem,m_shooterSubsystem); // include other subsytems
+        private final Command m_complexAuto = new AutoComplex(m_robotDrive,m_intakeSubsystem,m_shooterSubsystem); // include other subsytems
+        private final Command m_sideAuto = new AutoSide(m_robotDrive,m_intakeSubsystem,m_shooterSubsystem); // include other subsytems
+        private final Command m_delayAuto = new AutoDelay(m_robotDrive,m_intakeSubsystem,m_shooterSubsystem); // include other subsytems
 
         // A chooser for autonomous commands
         SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -91,7 +90,7 @@ public class RobotContainer {
                 m_robotDrive.setDefaultCommand(
                                 // A split-stick arcade command, with forward/backward controlled by the left
                                 // hand, and turning controlled by the right.
-                                new DefaultDrive(m_robotDrive, () -> m_driverController.getRawAxis(1),
+                                new DriveDefault(m_robotDrive, () -> m_driverController.getRawAxis(1),
                                                 () -> m_driverController.getRawAxis(4)));
               
                 m_climberSubsystem.setDefaultCommand(
@@ -138,10 +137,10 @@ public class RobotContainer {
 
 
         new JoystickButton(m_operatorController, Button.kX.value)
-                .whenPressed(new StartIntakeRollers(m_intakeSubsystem));
+                .whenPressed(new IntakeRollersStart(m_intakeSubsystem));
 
         new JoystickButton(m_operatorController, Button.kB.value)
-                .whenPressed(new StopIntakeRollers(m_intakeSubsystem));
+                .whenPressed(new IntakeRollersStop(m_intakeSubsystem));
 
         new JoystickButton(m_operatorController, Button.kY.value)
                 .whenPressed(new IntakeArmUp(m_intakeSubsystem));
