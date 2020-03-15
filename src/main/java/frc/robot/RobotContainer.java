@@ -15,14 +15,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
-import frc.robot.Constants.AutoConstants;
+
 import frc.robot.Constants.OIConstants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.commands.ClimberManual;
 import frc.robot.commands.AutoComplex;
 import frc.robot.commands.DriveDefault;
 import frc.robot.commands.AutoDelay;
-import frc.robot.commands.DriveDistance;
 
 import frc.robot.commands.IntakeArmDown;
 
@@ -60,11 +59,6 @@ public class RobotContainer {
 
         // The autonomous routines
 
-        // A simple auto routine that drives forward a specified distance, and then
-        // stops.
-        private final Command m_simpleAuto = new DriveDistance(AutoConstants.kAutoDriveDistanceInches,
-                        AutoConstants.kAutoDriveSpeed, m_robotDrive);
-
         // A complex auto routine that drives forward, drops a hatch, and then drives
         // backward.
         private final Command m_complexAuto = new AutoComplex(m_robotDrive,m_intakeSubsystem,m_shooterSubsystem); // include other subsytems
@@ -98,7 +92,6 @@ public class RobotContainer {
                                                 () -> m_operatorController.getRawAxis(5)));
                         
                 // Add commands to the autonomous command chooser
-                m_chooser.addOption("Simple Auto", m_simpleAuto);
                 m_chooser.addOption("Complex Auto", m_complexAuto);
                 m_chooser.addOption("Side Auto", m_sideAuto);
                 m_chooser.addOption("Delay Auto", m_delayAuto);
@@ -116,10 +109,6 @@ public class RobotContainer {
          */
         private void configureButtonBindings() {
               
-                // While holding the shoulder button, drive at half speed
-                // new JoystickButton(m_driverController,
-                // Button.kBumperRight.value).whenHeld(new HalveDriveSpeed(m_robotDrive));
-  
         new JoystickButton(m_driverController, Button.kBumperLeft.value)
                 .whenPressed(new ShootPowerCellStop(m_shooterSubsystem))
                 .whenPressed(new LEDSetColor(m_ledSubsystem,0,0,255));
