@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
 
 import frc.robot.Constants.ShooterConstants;
+import utilities.CANSparkMaxDrive;
 
 import com.revrobotics.*;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -23,6 +24,7 @@ public class ShooterSubsystem extends SubsystemBase {
    * Creates a new ShooterSubsystem.
    */
   private final CANSparkMax m_ShooterWheelMotor = new CANSparkMax(ShooterConstants.kShooterWheelMotorID,MotorType.kBrushless);
+  private final CANSparkMax m_ShooterWheelMotor2 =new CANSparkMax(ShooterConstants.kShooterWheelMotorFollowerID,MotorType.kBrushless);
   private final CANSparkMax m_ShooterHoodMotor = new CANSparkMax(ShooterConstants.kShooterHoodMotorID,MotorType.kBrushless);
   private final CANSparkMax m_HopperMotor = new CANSparkMax(ShooterConstants.kHopperMotorID,MotorType.kBrushless);
   private final Servo m_ShooterServo = new Servo(ShooterConstants.kShooterServoID);
@@ -42,6 +44,7 @@ public class ShooterSubsystem extends SubsystemBase {
     setInverted();
     setShooterWheelPIDs();
     setShooterHoodPIDs();
+    //m_ShooterWheelMotor2.follow(m_ShooterWheelMotor);
 
 
   }
@@ -50,6 +53,7 @@ public class ShooterSubsystem extends SubsystemBase {
     m_ShooterWheelMotor.setInverted(ShooterConstants.kShooterWheelMotorInverted);
     m_ShooterHoodMotor.setInverted(ShooterConstants.kShooterHoodMotorInverted);
     m_HopperMotor.setInverted(ShooterConstants.kHopperMotorInverted);
+    m_ShooterWheelMotor2.setInverted(ShooterConstants.kShooterWheelMotorFollowerInverted);
   }
 
 
@@ -103,6 +107,8 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public void setShooterWheelSpeed(double inputSpeed){
     m_ShooterWheelMotor.set(inputSpeed);
+    m_ShooterWheelMotor2.set(-1 * inputSpeed);
+    
   }
 
   public void setHopperSpeed(double inputSpeed){

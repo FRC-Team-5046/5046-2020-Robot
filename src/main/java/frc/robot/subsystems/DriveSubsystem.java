@@ -98,6 +98,50 @@ public class DriveSubsystem extends SubsystemBase {
     m_rightMotorsPIDController.setOutputRange(DriveConstants.kMinOutput, DriveConstants.kMaxOutput);
   } 
 
+	//converts inches to encoder pulses (needs to be tuned to the pulses of your encoder
+	public double inchToEncoder(double inches)
+	{
+		System.out.println("inchtoencoder: "+(inches / DriveConstants.kWheelCicumference) * ((double) DriveConstants.kEncoderCPR * DriveConstants.kGearboxRatio));
+    return (inches / DriveConstants.kWheelCicumference) * ((double) DriveConstants.kEncoderCPR * DriveConstants.kGearboxRatio);
+    
+    
+	}
+	
+	//converts degrees to encoder pulses
+	public double degreesToEncoder(double degrees)
+	{
+		return inchToEncoder((DriveConstants.kRobotCircumference / 360) * degrees);
+	}
+	
+
+
+
+	//Sets the distance that you are trying to reach in inches
+	public void setSetpointDrive(double setpointinches)
+	{
+		System.out.println("Target "+inchToEncoder(setpointinches));
+
+    m_leftMotorsPIDController.setReference(inchToEncoder(setpointinches), ControlType.kPosition);
+    m_rightMotorsPIDController.setReference(inchToEncoder(setpointinches), ControlType.kPosition);
+    
+	}
+
+
+  public void setSetpointTurn(double setpointdegrees)
+	{
+		// zeroEncoders();
+		// zeroGyro();
+
+		System.out.println("setpoint: " + degreesToEncoder(setpointdegrees));
+
+    m_leftMotorsPIDController.setReference(inchToEncoder(-setpointdegrees), ControlType.kPosition);
+    m_rightMotorsPIDController.setReference(inchToEncoder(setpointdegrees), ControlType.kPosition);
+	}
+	
+
+
+
+
   public void arcadeDrive(double throttle, double wheel){
     drive.driveArcade(throttle, wheel);
   }

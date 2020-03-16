@@ -71,7 +71,7 @@ public final class Constants {
     public static final int kRightMotor2ID = 4; //sparkMax
 
     public static final boolean kLeftMotorsInverted = true;
-    public static final boolean kRightMotorsInverted = true;
+    public static final boolean kRightMotorsInverted = false;
 
     public static final boolean kBrakeMode = true;
 
@@ -80,11 +80,14 @@ public final class Constants {
     public static final boolean kLeftEncoderReversed = false;
     public static final boolean kRightEncoderReversed = true;
 
-    public static final int kEncoderCPR = 1024;
+    public static final int kEncoderCPR = 42;  //CPR = Counts per revolution
     public static final double kWheelDiameterInches = 6;
+    public static final double kWheelCicumference = kWheelDiameterInches * Math.PI;
+    public static final double kGearboxRatio = 10.75; //Gearbox Raitio 10.75:1
     public static final double kEncoderDistancePerPulse =
         // Assumes the encoders are directly mounted on the wheel shafts
-        (kWheelDiameterInches * Math.PI) / (double) kEncoderCPR;
+        kWheelCicumference / ((double) kEncoderCPR * kGearboxRatio);
+    public static final double kRobotCircumference = 118;
 
 
     
@@ -125,8 +128,10 @@ public final class Constants {
 
   public static final class ShooterConstants {
     public static final int kShooterWheelMotorID = 6; //sparkMax
+    public static final int kShooterWheelMotorFollowerID = 18;
     public static final boolean kShooterWheelMotorBrakeMode = true;
     public static final boolean kShooterWheelMotorInverted = true;
+    public static final boolean kShooterWheelMotorFollowerInverted = true;
     public static final double kShooterWheelP = 6e-5;
     public static final int kShooterWheelI = 0;
     public static final int kShooterWheelD = 0;
