@@ -17,6 +17,7 @@ import com.revrobotics.CANPIDController;
 import com.revrobotics.ControlType;
 //import com.revrobotics.CANEncoder;
 import edu.wpi.first.wpilibj.Servo;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class ShooterSubsystem extends SubsystemBase {
@@ -29,7 +30,7 @@ public class ShooterSubsystem extends SubsystemBase {
   private final CANSparkMax m_HopperMotor = new CANSparkMax(ShooterConstants.kHopperMotorID,MotorType.kBrushless);
   private final Servo m_ShooterServo = new Servo(ShooterConstants.kShooterServoID);
   private final CANPIDController m_ShooterWheelPIDController = m_ShooterWheelMotor.getPIDController();
-//  private final CANEncoder m_ShooterWheelEncoder = m_ShooterWheelMotor.getEncoder();
+  private final CANEncoder m_ShooterWheelEncoder = m_ShooterWheelMotor.getEncoder();
   private final CANPIDController m_ShooterHoodPIDController = m_ShooterHoodMotor.getPIDController();
 // private final CANEncoder m_ShooterHoodEncoder = m_ShooterHoodMotor.getEncoder();
 
@@ -102,7 +103,9 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
 
- 
+ public void getVelocity(){
+  SmartDashboard.putNumber("shooter velocity", m_ShooterWheelEncoder.getVelocity());
+ }
 
 
   public void setShooterWheelSpeed(double inputSpeed){
@@ -119,6 +122,7 @@ public class ShooterSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    getVelocity();
   }
 }
 
